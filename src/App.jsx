@@ -20,6 +20,7 @@ const CONTACT = {
 
 const A = '/assets/';
 const images = {
+  logo: A + 'logo-vungtau-living.png',
   lavidaAerial: A + 'lavida-aerial.webp',
   lavidaWalk: A + 'lavida-river-walk.webp',
   lavidaShop: A + 'lavida-shophouse.webp',
@@ -85,6 +86,11 @@ const posts = [
   { title: 'Ký gửi bất động sản tại Vũng Tàu: chủ nhà cần chuẩn bị gì?', tag: 'Ký gửi', image: images.lavidaWalk, desc: 'Quy trình ký gửi bán, cho thuê, định giá và truyền thông sản phẩm hiệu quả hơn.' },
 ];
 
+
+function LoadingScreen() {
+  return <div className="fixed inset-0 z-[999] flex items-center justify-center bg-[#020817]"><div className="text-center"><img src={images.logo} alt="Logo VungTau Living" className="mx-auto h-28 w-28 animate-pulse rounded-[2rem] bg-white object-contain p-2 shadow-2xl shadow-[#d6a642]/20" /><p className="mt-5 font-serif text-2xl font-semibold text-white">VungTau Living</p><p className="mt-2 text-sm uppercase tracking-[0.24em] text-[#d6a642]">Đang tải trải nghiệm</p></div></div>;
+}
+
 function SectionHeader({ eyebrow, title, desc, dark = false }) {
   return (
     <div className="mx-auto mb-10 max-w-3xl text-center">
@@ -97,45 +103,51 @@ function SectionHeader({ eyebrow, title, desc, dark = false }) {
 
 function ButtonLink({ href, children, variant = 'primary', className = '' }) {
   const base = 'inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2';
-  const styles = variant === 'primary' ? 'bg-slate-950 text-white shadow-lg shadow-slate-950/20 hover:-translate-y-0.5 hover:bg-slate-800' : variant === 'gold' ? 'bg-amber-600 text-white shadow-lg shadow-amber-600/20 hover:-translate-y-0.5 hover:bg-amber-700' : 'border border-slate-300 bg-white/80 text-slate-900 hover:-translate-y-0.5 hover:border-slate-950';
+  const styles = variant === 'primary' ? 'bg-[#061a33] text-white shadow-lg shadow-slate-950/20 hover:-translate-y-0.5 hover:bg-[#082746]' : variant === 'gold' ? 'bg-gradient-to-r from-[#b8862f] to-[#d6a642] text-white shadow-lg shadow-[#d6a642]/20 hover:-translate-y-0.5 hover:from-[#a77925] hover:to-[#c7932f]' : 'border border-[#d6a642]/35 bg-white/90 text-[#061a33] hover:-translate-y-0.5 hover:border-[#b8862f]';
   return <a href={href} className={`${base} ${styles} ${className}`}>{children}</a>;
 }
 
 function Header() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/20 bg-white/85 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[#d6a642]/25 bg-[#061a33]/92 text-white shadow-2xl shadow-slate-950/20 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
         <a href="#home" className="group flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-lg shadow-slate-950/20"><Waves size={22} /></div>
-          <div><p className="font-serif text-xl font-semibold tracking-tight text-slate-950">VungTau Living</p><p className="text-xs uppercase tracking-[0.2em] text-slate-500">by Huyen Tran</p></div>
+          <img src={images.logo} alt="Logo VungTau Living" className="h-14 w-14 rounded-2xl border border-[#d6a642]/35 bg-white object-contain p-1 shadow-lg shadow-[#d6a642]/20" />
+          <div><p className="font-serif text-xl font-semibold tracking-tight text-white">VungTau Living</p><p className="text-xs uppercase tracking-[0.2em] text-[#d6a642]">Môi giới & kinh doanh BĐS</p></div>
         </a>
-        <nav className="hidden items-center gap-6 lg:flex">{navItems.map((item) => <a key={item.href} href={item.href} className="text-sm font-medium text-slate-700 hover:text-amber-700">{item.label}</a>)}</nav>
-        <div className="hidden items-center gap-3 lg:flex"><a href={CONTACT.phoneHref} className="text-sm font-semibold text-slate-950">{CONTACT.phone}</a><ButtonLink href={CONTACT.zalo} variant="gold">Chat Zalo</ButtonLink></div>
-        <button onClick={() => setOpen((v) => !v)} className="rounded-full border border-slate-200 p-2 text-slate-900 lg:hidden" aria-label="Mở menu">{open ? <X size={22} /> : <Menu size={22} />}</button>
+        <nav className="hidden items-center gap-6 lg:flex">{navItems.map((item) => <a key={item.href} href={item.href} className="text-sm font-medium text-slate-100 hover:text-[#f1c66a]">{item.label}</a>)}</nav>
+        <div className="hidden items-center gap-3 lg:flex"><a href={CONTACT.phoneHref} className="text-sm font-semibold text-white">{CONTACT.phone}</a><ButtonLink href={CONTACT.zalo} variant="gold">Chat Zalo</ButtonLink></div>
+        <button onClick={() => setOpen((v) => !v)} className="rounded-full border border-white/15 p-2 text-white lg:hidden" aria-label="Mở menu">{open ? <X size={22} /> : <Menu size={22} />}</button>
       </div>
-      {open && <div className="border-t border-slate-100 bg-white px-4 pb-5 lg:hidden"><div className="grid gap-2 py-4">{navItems.map((item) => <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="rounded-xl px-3 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50">{item.label}</a>)}</div><div className="grid grid-cols-2 gap-3"><ButtonLink href={CONTACT.phoneHref} variant="secondary">Gọi ngay</ButtonLink><ButtonLink href={CONTACT.zalo} variant="gold">Zalo</ButtonLink></div></div>}
+      {open && <div className="border-t border-white/10 bg-[#061a33] px-4 pb-5 lg:hidden"><div className="grid gap-2 py-4">{navItems.map((item) => <a key={item.href} href={item.href} onClick={() => setOpen(false)} className="rounded-xl px-3 py-3 text-sm font-semibold text-slate-100 hover:bg-white/10">{item.label}</a>)}</div><div className="grid grid-cols-2 gap-3"><ButtonLink href={CONTACT.phoneHref} variant="secondary">Gọi ngay</ButtonLink><ButtonLink href={CONTACT.zalo} variant="gold">Zalo</ButtonLink></div></div>}
     </header>
   );
 }
 
 function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden bg-slate-950 pt-28 text-white">
-      <img src={images.blancaHero} alt="Blanca City Vũng Tàu" className="absolute inset-0 h-full w-full object-cover opacity-45" />
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-slate-950/20" />
+    <section id="home" className="relative overflow-hidden bg-[#061a33] pt-28 text-white">
+      <img src={images.blancaHero} alt="Blanca City Vũng Tàu" className="absolute inset-0 h-full w-full object-cover opacity-35" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(214,166,66,.32),transparent_28%),radial-gradient(circle_at_86%_18%,rgba(11,74,117,.45),transparent_32%),linear-gradient(90deg,#061a33,#082746cc_48%,#02081799)]" />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 md:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-amber-100 shadow-sm backdrop-blur"><Star size={16} /> Bất động sản Lavida & Blanca City tại Vũng Tàu</div>
-          <h1 className="font-serif text-4xl font-semibold leading-tight tracking-tight md:text-6xl lg:text-7xl">Tìm đúng bất động sản, đúng nhu cầu, đúng giá trị.</h1>
+          <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-[#d6a642]/35 bg-white/10 px-4 py-2 text-sm font-semibold text-[#f5d78c] shadow-sm backdrop-blur"><img src={images.logo} alt="Logo VungTau Living" className="h-9 w-9 rounded-full bg-white object-contain p-0.5" /> Bất động sản Lavida & Blanca City tại Vũng Tàu</div>
+          <h1 className="font-serif text-4xl font-semibold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">Tìm đúng bất động sản, đúng nhu cầu, đúng giá trị.</h1>
           <p className="mt-6 max-w-2xl text-lg leading-9 text-slate-200 md:text-xl">VungTau Living đồng hành cùng anh/chị trong mua bán, cho thuê, ký gửi và tư vấn đầu tư bất động sản tại Lavida Residences, Blanca City và khu vực Vũng Tàu.</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row"><ButtonLink href="#ban" variant="gold">Xem nhà đang bán <ChevronRight size={17} /></ButtonLink><ButtonLink href={CONTACT.zalo} variant="secondary">Nhận tư vấn qua Zalo</ButtonLink><ButtonLink href="#kygui" variant="secondary">Ký gửi bất động sản</ButtonLink></div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-3">{[['2','Dự án trọng tâm'],['24/7','Dễ liên hệ'],['4','Dịch vụ chính']].map(([num, label]) => <div key={label} className="rounded-3xl border border-white/10 bg-white/10 p-5 shadow-sm backdrop-blur"><p className="font-serif text-3xl font-semibold text-[#f1c66a]">{num}</p><p className="mt-1 text-sm text-slate-200">{label}</p></div>)}</div>
         </motion.div>
         <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.1 }} className="relative">
-          <div className="grid gap-4 rounded-[2rem] border border-white/20 bg-white/10 p-4 shadow-2xl shadow-slate-950/30 backdrop-blur">
-            <img src={images.lavidaAerial} alt="Lavida Residences" className="h-64 w-full rounded-[1.5rem] object-cover" />
-            <div className="grid gap-3 md:grid-cols-2">
-              {projects.map((p) => <a key={p.name} href={p.href} className="rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur hover:bg-white/15"><p className="text-xs uppercase tracking-[0.2em] text-amber-200">{p.stat}</p><h4 className="mt-2 font-serif text-2xl font-semibold">{p.name}</h4><p className="mt-2 text-sm leading-6 text-slate-200">{p.label}</p></a>)}
+          <div className="rounded-[2.5rem] border border-[#d6a642]/25 bg-white/10 p-4 shadow-2xl shadow-black/25 backdrop-blur">
+            <div className="relative overflow-hidden rounded-[2rem] border border-[#d6a642]/25 bg-[#020817] p-8 text-white">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(214,166,66,.28),transparent_32%),radial-gradient(circle_at_80%_10%,rgba(11,74,117,.38),transparent_34%)]" />
+              <div className="relative min-h-[500px]">
+                <div className="flex items-center gap-4"><img src={images.logo} alt="Logo VungTau Living" className="h-20 w-20 rounded-3xl bg-white object-contain p-1 shadow-xl shadow-[#d6a642]/20" /><div><p className="text-sm uppercase tracking-[0.28em] text-[#f1c66a]">VungTau Living</p><p className="mt-1 text-sm text-slate-300">Môi giới & kinh doanh bất động sản</p></div></div>
+                <h3 className="mt-8 font-serif text-4xl font-semibold leading-tight">Lavida Residences <br /> & Blanca City</h3>
+                <p className="mt-5 max-w-sm leading-7 text-slate-200">Một website chuyên nghiệp để khách hàng xem dự án, chọn sản phẩm, gửi nhu cầu tư vấn và ký gửi bất động sản.</p>
+                <div className="absolute bottom-0 left-0 right-0 grid gap-3 md:grid-cols-2">{projects.map((p) => <a key={p.name} href={p.href} className="rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur hover:bg-white/15"><p className="text-xs uppercase tracking-[0.2em] text-[#f1c66a]">{p.stat}</p><h4 className="mt-2 font-serif text-2xl font-semibold">{p.name}</h4><p className="mt-2 text-sm leading-6 text-slate-200">{p.label}</p></a>)}</div>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -145,7 +157,7 @@ function Hero() {
 }
 
 function About() {
-  return <section id="gioithieu" className="bg-white px-4 py-20 md:px-6"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]"><div className="rounded-[2rem] bg-slate-950 p-8 text-white shadow-xl shadow-slate-950/10"><p className="text-sm uppercase tracking-[0.28em] text-amber-300">Định vị thương hiệu</p><h2 className="mt-5 font-serif text-4xl font-semibold">Huyen Tran – người đồng hành tư vấn bất động sản Vũng Tàu.</h2><p className="mt-6 leading-8 text-slate-200">Không chỉ giới thiệu sản phẩm, VungTau Living giúp khách hàng hiểu rõ tài sản mình đang chọn: vị trí, pháp lý, khả năng khai thác, giá trị sử dụng và sự phù hợp với mục tiêu cá nhân.</p><div className="mt-8 flex flex-wrap gap-3">{['Minh bạch', 'Tận tâm', 'Am hiểu', 'Chuyên sâu'].map((item) => <span key={item} className="rounded-full border border-white/15 px-4 py-2 text-sm text-slate-100">{item}</span>)}</div></div><div className="grid gap-5 sm:grid-cols-2">{reasons.map((reason, index) => <motion.div key={reason} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.05 }} className="rounded-[2rem] border border-slate-100 bg-slate-50 p-6"><CheckCircle2 className="mb-5 text-amber-700" /><p className="text-base leading-7 text-slate-700">{reason}</p></motion.div>)}</div></div></section>;
+  return <section id="gioithieu" className="relative overflow-hidden bg-[#f8f4ed] px-4 py-24 md:px-6"><div className="absolute left-[-12%] top-[-20%] h-96 w-96 rounded-full bg-[#d6a642]/20 blur-3xl" /><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]"><div className="relative overflow-hidden rounded-[2.5rem] border border-[#d6a642]/25 bg-[#061a33] p-8 text-white shadow-2xl shadow-slate-950/15"><div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_15%,rgba(214,166,66,.24),transparent_30%)]" /><div className="relative"><div className="mb-8 flex items-center gap-5"><img src={images.logo} alt="Logo VungTau Living" className="h-24 w-24 rounded-3xl bg-white object-contain p-2 shadow-xl shadow-[#d6a642]/20" /><div><p className="text-sm uppercase tracking-[0.28em] text-[#f1c66a]">Bộ nhận diện</p><h2 className="mt-2 font-serif text-3xl font-semibold">VungTau Living</h2></div></div><h3 className="font-serif text-4xl font-semibold leading-tight">Huyen Tran – người đồng hành tư vấn bất động sản Vũng Tàu.</h3><p className="mt-6 leading-8 text-slate-200">Logo mang tinh thần biển, đô thị, mái nhà và đường tăng trưởng. Vì vậy website được đồng bộ theo tone xanh navy – vàng champagne, tạo cảm giác sang trọng, tin cậy và phù hợp lĩnh vực bất động sản cao cấp.</p><div className="mt-8 flex flex-wrap gap-3">{['Minh bạch', 'Tận tâm', 'Am hiểu', 'Chuyên sâu'].map((item) => <span key={item} className="rounded-full border border-[#d6a642]/30 bg-white/8 px-4 py-2 text-sm text-slate-100">{item}</span>)}</div></div></div><div className="grid gap-5 sm:grid-cols-2">{reasons.map((reason, index) => <motion.div key={reason} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.05 }} className="rounded-[2rem] border border-[#d6a642]/15 bg-white p-6 shadow-sm"><CheckCircle2 className="mb-5 text-[#b8862f]" /><p className="text-base leading-7 text-slate-700">{reason}</p></motion.div>)}</div></div></section>;
 }
 
 function Projects() {
@@ -170,7 +182,153 @@ function Listings() {
 }
 
 function LeadForm({ title = 'Nhận tư vấn bất động sản', mode = 'lead' }) {
-  return <form id="form" className="rounded-[2rem] border border-slate-100 bg-white p-6 shadow-xl shadow-slate-950/5"><h3 className="font-serif text-3xl font-semibold text-slate-950">{title}</h3><p className="mt-3 leading-7 text-slate-600">Để lại nhu cầu, Huyen Tran sẽ liên hệ và gửi thông tin phù hợp qua điện thoại/Zalo.</p><div className="mt-6 grid gap-4"><input className="rounded-2xl border border-slate-200 px-4 py-4 outline-none focus:border-amber-500" placeholder="Họ tên" /><input className="rounded-2xl border border-slate-200 px-4 py-4 outline-none focus:border-amber-500" placeholder="Số điện thoại" /><select className="rounded-2xl border border-slate-200 px-4 py-4 outline-none focus:border-amber-500" defaultValue=""><option value="" disabled>Nhu cầu của anh/chị</option><option>Mua bất động sản</option><option>Thuê bất động sản</option><option>Bán / ký gửi</option><option>Cho thuê / ký gửi</option><option>Tư vấn đầu tư</option></select><select className="rounded-2xl border border-slate-200 px-4 py-4 outline-none focus:border-amber-500" defaultValue=""><option value="" disabled>Dự án quan tâm</option><option>Lavida Residences</option><option>Blanca City</option><option>Khu vực Vũng Tàu khác</option></select><textarea className="min-h-32 rounded-2xl border border-slate-200 px-4 py-4 outline-none focus:border-amber-500" placeholder={mode === 'consign' ? 'Mô tả tài sản: vị trí, loại hình, giá mong muốn, pháp lý...' : 'Ngân sách, nhu cầu, thời gian muốn xem nhà...'} /><button type="button" className="inline-flex items-center justify-center gap-2 rounded-full bg-amber-600 px-5 py-4 text-sm font-semibold text-white shadow-lg shadow-amber-600/20 hover:bg-amber-700"><Send size={17} /> Gửi nhu cầu tư vấn</button></div><p className="mt-4 text-xs leading-6 text-slate-500">Lưu ý: Form demo. Khi triển khai thật, form sẽ được kết nối email, Google Sheet hoặc CRM.</p></form>;
+  const SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    need: '',
+    project: '',
+    message: '',
+  });
+  const [status, setStatus] = useState('idle');
+  const [notice, setNotice] = useState('');
+
+  const updateField = (field, value) => {
+    setFormData((current) => ({ ...current, [field]: value }));
+  };
+
+  const buildPayload = () => ({
+    formTitle: title,
+    formMode: mode,
+    name: formData.name.trim(),
+    phone: formData.phone.trim(),
+    need: formData.need,
+    project: formData.project,
+    message: formData.message.trim(),
+    source: 'Website VungTau Living',
+    pageUrl: window.location.href,
+    submittedAt: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }),
+  });
+
+  const openEmailFallback = (payload) => {
+    const subject = encodeURIComponent(`[VungTau Living] Khách gửi form: ${payload.name || 'Chưa có tên'}`);
+    const body = encodeURIComponent(
+      `Có khách vừa gửi nhu cầu từ website VungTau Living:\n\n` +
+        `Họ tên: ${payload.name}\n` +
+        `Số điện thoại: ${payload.phone}\n` +
+        `Nhu cầu: ${payload.need}\n` +
+        `Dự án quan tâm: ${payload.project}\n` +
+        `Nội dung: ${payload.message}\n` +
+        `Nguồn: ${payload.source}\n` +
+        `Trang gửi: ${payload.pageUrl}\n` +
+        `Thời gian: ${payload.submittedAt}`
+    );
+    window.location.href = `${CONTACT.emailHref}?subject=${subject}&body=${body}`;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const payload = buildPayload();
+
+    if (!payload.name || !payload.phone) {
+      setStatus('error');
+      setNotice('Anh/chị vui lòng nhập họ tên và số điện thoại để Huyen Tran liên hệ lại.');
+      return;
+    }
+
+    setStatus('loading');
+    setNotice('Đang gửi thông tin...');
+
+    if (!SCRIPT_URL) {
+      openEmailFallback(payload);
+      setStatus('success');
+      setNotice('Website chưa gắn Google Sheet, hệ thống đã mở email để gửi thông tin cho Huyen Tran.');
+      return;
+    }
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      });
+
+      setStatus('success');
+      setNotice('Cảm ơn anh/chị. Thông tin đã được ghi nhận, Huyen Tran sẽ liên hệ lại sớm.');
+      setFormData({ name: '', phone: '', need: '', project: '', message: '' });
+    } catch (error) {
+      console.error(error);
+      setStatus('error');
+      setNotice('Form chưa gửi được. Anh/chị có thể gọi/Zalo trực tiếp hoặc thử lại sau.');
+    }
+  };
+
+  return (
+    <form id="form" onSubmit={handleSubmit} className="rounded-[2rem] border border-slate-100 bg-white p-6 shadow-xl shadow-slate-950/5">
+      <h3 className="font-serif text-3xl font-semibold text-slate-950">{title}</h3>
+      <p className="mt-3 leading-7 text-slate-600">Để lại nhu cầu, Huyen Tran sẽ liên hệ và gửi thông tin phù hợp qua điện thoại/Zalo.</p>
+      <div className="mt-6 grid gap-4">
+        <input
+          className="rounded-2xl border border-slate-200 px-4 py-4 outline-none focus:border-amber-500"
+          placeholder="Họ tên"
+          value={formData.name}
+          onChange={(event) => updateField('name', event.target.value)}
+          autoComplete="name"
+        />
+        <input
+          className="rounded-2xl border border-slate-200 px-4 py-4 outline-none focus:border-amber-500"
+          placeholder="Số điện thoại"
+          value={formData.phone}
+          onChange={(event) => updateField('phone', event.target.value)}
+          autoComplete="tel"
+        />
+        <select
+          className="rounded-2xl border border-slate-200 px-4 py-4 outline-none focus:border-amber-500"
+          value={formData.need}
+          onChange={(event) => updateField('need', event.target.value)}
+        >
+          <option value="" disabled>Nhu cầu của anh/chị</option>
+          <option>Mua bất động sản</option>
+          <option>Thuê bất động sản</option>
+          <option>Bán / ký gửi</option>
+          <option>Cho thuê / ký gửi</option>
+          <option>Tư vấn đầu tư</option>
+        </select>
+        <select
+          className="rounded-2xl border border-slate-200 px-4 py-4 outline-none focus:border-amber-500"
+          value={formData.project}
+          onChange={(event) => updateField('project', event.target.value)}
+        >
+          <option value="" disabled>Dự án quan tâm</option>
+          <option>Lavida Residences</option>
+          <option>Blanca City</option>
+          <option>Khu vực Vũng Tàu khác</option>
+        </select>
+        <textarea
+          className="min-h-32 rounded-2xl border border-slate-200 px-4 py-4 outline-none focus:border-amber-500"
+          placeholder={mode === 'consign' ? 'Mô tả tài sản: vị trí, loại hình, giá mong muốn, pháp lý...' : 'Ngân sách, nhu cầu, thời gian muốn xem nhà...'}
+          value={formData.message}
+          onChange={(event) => updateField('message', event.target.value)}
+        />
+        <button
+          type="submit"
+          disabled={status === 'loading'}
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-amber-600 px-5 py-4 text-sm font-semibold text-white shadow-lg shadow-amber-600/20 hover:bg-amber-700 disabled:cursor-not-allowed disabled:opacity-70"
+        >
+          <Send size={17} /> {status === 'loading' ? 'Đang gửi...' : 'Gửi nhu cầu tư vấn'}
+        </button>
+      </div>
+      {notice && (
+        <p className={`mt-4 rounded-2xl px-4 py-3 text-sm leading-6 ${status === 'error' ? 'bg-red-50 text-red-700' : 'bg-emerald-50 text-emerald-700'}`}>
+          {notice}
+        </p>
+      )}
+      <p className="mt-4 text-xs leading-6 text-slate-500">
+        Form đã sẵn sàng kết nối Google Sheet + email. Nếu chưa cấu hình VITE_GOOGLE_SCRIPT_URL, form sẽ tự mở email dự phòng để gửi thông tin.
+      </p>
+    </form>
+  );
 }
 
 function Consign() {
@@ -190,9 +348,17 @@ function FloatingCTA() {
 }
 
 function Footer() {
-  return <footer className="bg-[#080f1f] px-4 py-12 text-slate-300 md:px-6"><div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-4"><div className="md:col-span-2"><h3 className="font-serif text-3xl font-semibold text-white">VungTau Living</h3><p className="mt-4 max-w-xl leading-7">Website tư vấn bất động sản Lavida Residences, Blanca City và khu vực Vũng Tàu, định hướng minh bạch, gần gũi và chuyên nghiệp.</p><p className="mt-5 text-sm text-slate-500">Thông tin, hình ảnh, giá bán và chính sách trên website cần được cập nhật theo từng thời điểm và kiểm tra theo hồ sơ thực tế trước khi giao dịch.</p></div><div><h4 className="font-semibold text-white">Menu</h4><div className="mt-4 grid gap-2">{navItems.slice(0, 6).map((item) => <a key={item.href} href={item.href} className="hover:text-amber-300">{item.label}</a>)}</div></div><div><h4 className="font-semibold text-white">Liên hệ</h4><div className="mt-4 grid gap-2"><a href={CONTACT.phoneHref} className="hover:text-amber-300">{CONTACT.phone}</a><a href={CONTACT.zalo} className="hover:text-amber-300">Zalo Huyen Tran</a><a href={CONTACT.messenger} className="hover:text-amber-300">Messenger</a><a href={CONTACT.emailHref} className="hover:text-amber-300">{CONTACT.email}</a></div></div></div><div className="mx-auto mt-10 max-w-7xl border-t border-white/10 pt-6 text-sm text-slate-500">© {new Date().getFullYear()} VungTau Living by Huyen Tran. All rights reserved.</div></footer>;
+  return <footer className="bg-[#020817] px-4 py-14 text-slate-300 md:px-6"><div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-4"><div className="md:col-span-2"><div className="flex items-center gap-4"><img src={images.logo} alt="Logo VungTau Living" className="h-20 w-20 rounded-3xl border border-[#d6a642]/30 bg-white object-contain p-1 shadow-xl shadow-[#d6a642]/10" /><div><h3 className="font-serif text-3xl font-semibold text-white">VungTau Living</h3><p className="mt-1 text-sm uppercase tracking-[0.2em] text-[#d6a642]">Môi giới & kinh doanh bất động sản</p></div></div><p className="mt-5 max-w-xl leading-7">Website tư vấn bất động sản Lavida Residences, Blanca City và khu vực Vũng Tàu, định hướng minh bạch, gần gũi và chuyên nghiệp.</p><p className="mt-5 text-sm text-slate-500">Thông tin, hình ảnh, giá bán và chính sách trên website cần được cập nhật theo từng thời điểm và kiểm tra theo hồ sơ thực tế trước khi giao dịch.</p></div><div><h4 className="font-semibold text-white">Menu</h4><div className="mt-4 grid gap-2">{navItems.slice(0, 6).map((item) => <a key={item.href} href={item.href} className="hover:text-[#f1c66a]">{item.label}</a>)}</div></div><div><h4 className="font-semibold text-white">Liên hệ</h4><div className="mt-4 grid gap-2"><a href={CONTACT.phoneHref} className="hover:text-[#f1c66a]">{CONTACT.phone}</a><a href={CONTACT.zalo} className="hover:text-[#f1c66a]">Zalo Huyen Tran</a><a href={CONTACT.messenger} className="hover:text-[#f1c66a]">Messenger</a><a href={CONTACT.emailHref} className="hover:text-[#f1c66a]">{CONTACT.email}</a></div></div></div><div className="mx-auto mt-10 max-w-7xl border-t border-[#d6a642]/15 pt-6 text-sm text-slate-500">© {new Date().getFullYear()} VungTau Living by Huyen Tran. All rights reserved.</div></footer>;
 }
 
 export default function App() {
-  return <main className="min-h-screen scroll-smooth bg-white text-slate-900"><Header /><Hero /><About /><Projects /><ProjectDetail id="lavida" eyebrow="Lavida Residences" name="Khu dân cư cao cấp tại cửa ngõ Vũng Tàu" intro="Lavida Residences phù hợp với khách hàng tìm kiếm bất động sản đã hình thành, có thể xem thực tế, mua để ở, mua đầu tư, cho thuê hoặc ký gửi chuyển nhượng." gallery={[{ src: images.lavidaAerial, alt: 'Toàn cảnh khu dân cư Lavida Residences' }, { src: images.lavidaWalk, alt: 'Không gian cảnh quan và lối dạo nội khu Lavida' }, { src: images.lavidaShop, alt: 'Nhà phố thương mại Lavida' }]} plan={{ src: images.lavidaPlan, alt: 'Mặt bằng tổng thể Lavida Residences – hình ảnh tham khảo theo tài liệu dự án' }} bullets={[{ title: 'Vị trí', desc: 'Nằm trên trục đường 3/2, thuận tiện kết nối vào trung tâm Vũng Tàu và các tiện ích hiện hữu của thành phố.' }, { title: 'Loại hình sản phẩm', desc: 'Gồm nhà phố vườn, nhà phố thương mại, biệt thự song lập, biệt thự đơn lập và các khu thương mại – văn phòng theo mặt bằng tổng thể.' }, { title: 'Pháp lý & giá', desc: 'Cần kiểm tra theo từng căn cụ thể. Giá bán, giá thuê nên cập nhật theo vị trí, diện tích, tình trạng hoàn thiện và pháp lý thực tế.' }, { title: 'Lý do nên quan tâm', desc: 'Khu dân cư đã hình thành, dễ đánh giá thực tế, phù hợp nhu cầu ở thật, khai thác cho thuê và tích sản trung – dài hạn.' }]} faq={[{ q: 'Lavida phù hợp để ở hay đầu tư?', a: 'Phù hợp cả hai, nhưng cần chọn căn theo mục tiêu: ở thật ưu tiên môi trường sống; đầu tư ưu tiên vị trí, giá mua, pháp lý và khả năng cho thuê.' }, { q: 'Giá Lavida hiện nay bao nhiêu?', a: 'Giá phụ thuộc từng căn, vị trí, diện tích, tình trạng hoàn thiện và pháp lý. Nên liên hệ để nhận danh sách cập nhật.' }, { q: 'Có thể ký gửi nhà tại Lavida không?', a: 'Có. VungTau Living hỗ trợ chủ nhà ký gửi bán hoặc cho thuê, tư vấn giá và tìm khách phù hợp.' }]} /><ProjectDetail id="blanca" eyebrow="Blanca City" name="Đô thị biển mới tại Vũng Tàu" intro="Blanca City được định hướng là đô thị biển tích hợp sống, nghỉ dưỡng, giải trí và thương mại, phù hợp khách hàng quan tâm tài sản ven biển và đầu tư dài hạn." gallery={[{ src: images.blancaHero, alt: 'Phối cảnh tổng quan Blanca City' }, { src: images.blancaBeacon, alt: 'Tòa Beacon Blanca City' }, { src: images.blancaWaterpark, alt: 'Tiện ích vui chơi giải trí Sun World Vũng Tàu – phối cảnh tham khảo' }, { src: images.blancaRetail, alt: 'Không gian Sun Retail Vũng Tàu – phối cảnh tham khảo' }, { src: images.blancaPark, alt: 'Không gian công viên trung tâm Blanca City – phối cảnh tham khảo' }, { src: images.blancaLobby, alt: 'Sảnh đón sang trọng – phối cảnh tham khảo' }]} bullets={[{ title: 'Vị trí', desc: 'Gắn với trục đường 3/2 và khu vực ven biển Bãi Sau, tạo lợi thế kết nối nội đô và giá trị nghỉ dưỡng biển.' }, { title: 'Quy mô & định hướng', desc: 'Đô thị biển quy mô lớn, phát triển theo hướng tích hợp nhiều chức năng: nhà ở, căn hộ, thương mại, dịch vụ, nghỉ dưỡng và giải trí.' }, { title: 'Loại hình sản phẩm', desc: 'Có thể triển khai nội dung theo từng dòng sản phẩm như căn hộ, thấp tầng, thương mại, nghỉ dưỡng và các tòa/phân khu nổi bật như Beacon.' }, { title: 'Giá bán & chính sách', desc: 'Nên cập nhật theo từng giai đoạn bán hàng, loại hình, vị trí và chính sách thanh toán thực tế tại thời điểm tư vấn.' }]} faq={[{ q: 'Blanca City phù hợp để ở hay đầu tư?', a: 'Phù hợp nhiều mục tiêu, nhưng cần chọn dòng sản phẩm theo nhu cầu sử dụng, khả năng tài chính và thời gian nắm giữ.' }, { q: 'Có thể nhận bảng giá Blanca City ở đâu?', a: 'Anh/chị có thể liên hệ Huyen Tran qua Zalo hoặc form tư vấn để nhận thông tin cập nhật theo từng thời điểm.' }, { q: 'Có nên đầu tư Blanca City không?', a: 'Nên xem xét vị trí, giá vào, chính sách thanh toán, pháp lý, tiến độ và mục tiêu tài chính cá nhân trước khi quyết định.' }]} /><Services /><Listings /><section id="thue" className="bg-white px-4 py-20 md:px-6"><SectionHeader eyebrow="Cho thuê" title="Nhà phố, biệt thự, căn hộ cho thuê tại Vũng Tàu" desc="Khách thuê có thể gửi nhu cầu về ngân sách, thời gian thuê, mục đích sử dụng và khu vực mong muốn để được lọc căn phù hợp." /><div className="mx-auto max-w-4xl rounded-[2rem] border border-slate-100 bg-slate-50 p-8 text-center"><CalendarDays className="mx-auto mb-5 text-amber-700" size={38} /><h3 className="font-serif text-3xl font-semibold text-slate-950">Nhận danh sách căn cho thuê mới nhất</h3><p className="mx-auto mt-4 max-w-2xl leading-8 text-slate-600">Danh sách cho thuê thay đổi nhanh theo từng thời điểm. Hãy gửi nhu cầu để nhận căn phù hợp thay vì mất thời gian xem quá nhiều sản phẩm không đúng tiêu chí.</p><div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row"><ButtonLink href={CONTACT.zalo} variant="gold">Gửi nhu cầu thuê qua Zalo</ButtonLink><ButtonLink href="#form" variant="secondary">Điền form tư vấn</ButtonLink></div></div></section><Consign /><Blog /><Contact /><Footer /><FloatingCTA /></main>;
+  const [isLoading, setIsLoading] = useState(true);
+  React.useEffect(() => {
+    const timer = window.setTimeout(() => setIsLoading(false), 900);
+    return () => window.clearTimeout(timer);
+  }, []);
+  return <>
+    {isLoading && <LoadingScreen />}
+    <main className="min-h-screen scroll-smooth bg-white text-slate-900"><Header /><Hero /><About /><Projects /><ProjectDetail id="lavida" eyebrow="Lavida Residences" name="Khu dân cư cao cấp tại cửa ngõ Vũng Tàu" intro="Lavida Residences phù hợp với khách hàng tìm kiếm bất động sản đã hình thành, có thể xem thực tế, mua để ở, mua đầu tư, cho thuê hoặc ký gửi chuyển nhượng." gallery={[{ src: images.lavidaAerial, alt: 'Toàn cảnh khu dân cư Lavida Residences' }, { src: images.lavidaWalk, alt: 'Không gian cảnh quan và lối dạo nội khu Lavida' }, { src: images.lavidaShop, alt: 'Nhà phố thương mại Lavida' }]} plan={{ src: images.lavidaPlan, alt: 'Mặt bằng tổng thể Lavida Residences – hình ảnh tham khảo theo tài liệu dự án' }} bullets={[{ title: 'Vị trí', desc: 'Nằm trên trục đường 3/2, thuận tiện kết nối vào trung tâm Vũng Tàu và các tiện ích hiện hữu của thành phố.' }, { title: 'Loại hình sản phẩm', desc: 'Gồm nhà phố vườn, nhà phố thương mại, biệt thự song lập, biệt thự đơn lập và các khu thương mại – văn phòng theo mặt bằng tổng thể.' }, { title: 'Pháp lý & giá', desc: 'Cần kiểm tra theo từng căn cụ thể. Giá bán, giá thuê nên cập nhật theo vị trí, diện tích, tình trạng hoàn thiện và pháp lý thực tế.' }, { title: 'Lý do nên quan tâm', desc: 'Khu dân cư đã hình thành, dễ đánh giá thực tế, phù hợp nhu cầu ở thật, khai thác cho thuê và tích sản trung – dài hạn.' }]} faq={[{ q: 'Lavida phù hợp để ở hay đầu tư?', a: 'Phù hợp cả hai, nhưng cần chọn căn theo mục tiêu: ở thật ưu tiên môi trường sống; đầu tư ưu tiên vị trí, giá mua, pháp lý và khả năng cho thuê.' }, { q: 'Giá Lavida hiện nay bao nhiêu?', a: 'Giá phụ thuộc từng căn, vị trí, diện tích, tình trạng hoàn thiện và pháp lý. Nên liên hệ để nhận danh sách cập nhật.' }, { q: 'Có thể ký gửi nhà tại Lavida không?', a: 'Có. VungTau Living hỗ trợ chủ nhà ký gửi bán hoặc cho thuê, tư vấn giá và tìm khách phù hợp.' }]} /><ProjectDetail id="blanca" eyebrow="Blanca City" name="Đô thị biển mới tại Vũng Tàu" intro="Blanca City được định hướng là đô thị biển tích hợp sống, nghỉ dưỡng, giải trí và thương mại, phù hợp khách hàng quan tâm tài sản ven biển và đầu tư dài hạn." gallery={[{ src: images.blancaHero, alt: 'Phối cảnh tổng quan Blanca City' }, { src: images.blancaBeacon, alt: 'Tòa Beacon Blanca City' }, { src: images.blancaWaterpark, alt: 'Tiện ích vui chơi giải trí Sun World Vũng Tàu – phối cảnh tham khảo' }, { src: images.blancaRetail, alt: 'Không gian Sun Retail Vũng Tàu – phối cảnh tham khảo' }, { src: images.blancaPark, alt: 'Không gian công viên trung tâm Blanca City – phối cảnh tham khảo' }, { src: images.blancaLobby, alt: 'Sảnh đón sang trọng – phối cảnh tham khảo' }]} bullets={[{ title: 'Vị trí', desc: 'Gắn với trục đường 3/2 và khu vực ven biển Bãi Sau, tạo lợi thế kết nối nội đô và giá trị nghỉ dưỡng biển.' }, { title: 'Quy mô & định hướng', desc: 'Đô thị biển quy mô lớn, phát triển theo hướng tích hợp nhiều chức năng: nhà ở, căn hộ, thương mại, dịch vụ, nghỉ dưỡng và giải trí.' }, { title: 'Loại hình sản phẩm', desc: 'Có thể triển khai nội dung theo từng dòng sản phẩm như căn hộ, thấp tầng, thương mại, nghỉ dưỡng và các tòa/phân khu nổi bật như Beacon.' }, { title: 'Giá bán & chính sách', desc: 'Nên cập nhật theo từng giai đoạn bán hàng, loại hình, vị trí và chính sách thanh toán thực tế tại thời điểm tư vấn.' }]} faq={[{ q: 'Blanca City phù hợp để ở hay đầu tư?', a: 'Phù hợp nhiều mục tiêu, nhưng cần chọn dòng sản phẩm theo nhu cầu sử dụng, khả năng tài chính và thời gian nắm giữ.' }, { q: 'Có thể nhận bảng giá Blanca City ở đâu?', a: 'Anh/chị có thể liên hệ Huyen Tran qua Zalo hoặc form tư vấn để nhận thông tin cập nhật theo từng thời điểm.' }, { q: 'Có nên đầu tư Blanca City không?', a: 'Nên xem xét vị trí, giá vào, chính sách thanh toán, pháp lý, tiến độ và mục tiêu tài chính cá nhân trước khi quyết định.' }]} /><Services /><Listings /><section id="thue" className="bg-white px-4 py-20 md:px-6"><SectionHeader eyebrow="Cho thuê" title="Nhà phố, biệt thự, căn hộ cho thuê tại Vũng Tàu" desc="Khách thuê có thể gửi nhu cầu về ngân sách, thời gian thuê, mục đích sử dụng và khu vực mong muốn để được lọc căn phù hợp." /><div className="mx-auto max-w-4xl rounded-[2rem] border border-slate-100 bg-slate-50 p-8 text-center"><CalendarDays className="mx-auto mb-5 text-amber-700" size={38} /><h3 className="font-serif text-3xl font-semibold text-slate-950">Nhận danh sách căn cho thuê mới nhất</h3><p className="mx-auto mt-4 max-w-2xl leading-8 text-slate-600">Danh sách cho thuê thay đổi nhanh theo từng thời điểm. Hãy gửi nhu cầu để nhận căn phù hợp thay vì mất thời gian xem quá nhiều sản phẩm không đúng tiêu chí.</p><div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row"><ButtonLink href={CONTACT.zalo} variant="gold">Gửi nhu cầu thuê qua Zalo</ButtonLink><ButtonLink href="#form" variant="secondary">Điền form tư vấn</ButtonLink></div></div></section><Consign /><Blog /><Contact /><Footer /><FloatingCTA /></main>
+  </>;
 }
