@@ -107,3 +107,14 @@ npm run dev
 - Nếu chưa cấu hình `VITE_GOOGLE_SCRIPT_URL`, form sẽ tự mở email dự phòng để gửi thông tin về `tranhuyen213@gmail.com`.
 - Ảnh trong `public/assets` lấy từ tài liệu dự án đã upload. Trước khi đăng công khai, cần chắc chắn bạn có quyền sử dụng ảnh cho mục đích marketing.
 - Các thông tin giá bán, pháp lý, chính sách cần cập nhật theo từng thời điểm trước khi tư vấn/giao dịch.
+
+## Bản sửa theo yêu cầu mới
+
+Bản này đã chỉnh:
+- Header nền navy đậm, chữ rõ hơn.
+- Logo dùng bản watermark/cropped, không nền trắng, kích thước lớn hơn.
+- Hotline và Chat Zalo dùng `whitespace-nowrap` để không bị xuống dòng trên desktop.
+- Nút Vị trí trong Lavida/Blanca mở bản đồ Google Maps trực tiếp trên trang.
+- Nút Loại hình sản phẩm mở trang/modal riêng giới thiệu các dòng sản phẩm.
+- Mặt bằng Lavida hiển thị ngang bằng `object-contain`, không crop hình.
+- Giữ nguyên form Google Sheet + email.
